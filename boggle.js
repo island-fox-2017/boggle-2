@@ -3,7 +3,7 @@ class Boggle{
     this._square = square;
     // this._fs = require('fs');
     this._dictionary = //this._fs.readFileSync('data.js', 'utf8');
-    ["TIME", "WORD", "HOPE", "TRUE", "TOP", "HOT", "WORRY"];
+    ['TIME', 'TOP', 'TRY', 'WHORE']
     this._boggle= //this.boggle();
     [['T', 'I', 'M', 'D'],
     ['W', 'O', 'P', 'E'],
@@ -14,7 +14,7 @@ class Boggle{
 
   boggle(){
     let papan = []
-    let letterBoggle = 'abcdefghijklmnopqrstuvwxyz'.split('')
+    let letterBoggle = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
 
     for (let row = 0; row < 4; row++){
       
@@ -109,5 +109,5 @@ class Boggle{
 
 let game = new Boggle(4);
 console.log(game._boggle)
-console.log(game._dictionary);
+// console.log(game._dictionary);
 game.cariKata(game._boggle,game._pass);
