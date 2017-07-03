@@ -9,7 +9,7 @@ class Boggle{
     ['W', 'O', 'P', 'E'],
     ['H', 'O', 'R', 'U'],
     ['Y', 'R', 'T', 'E']]
-    this._dilewati=this.dilewati();
+    this._pass=this.pass();
   }
 
   boggle(){
@@ -59,7 +59,7 @@ class Boggle{
 
   }  
 
-  dilewati(){
+  pass(){
     let papan=[];
 
     for(let i=0; i<this._square; i++){
@@ -79,8 +79,8 @@ class Boggle{
     return false;
   }
 
-  cariKataPerIndex(boggle,dilewati,i,j,str){
-    dilewati[i][j]=true;
+  cariKataPerIndex(boggle,pass,i,j,str){
+    pass[i][j]=true;
     str = str + boggle[i][j];
 
     if (this.kata(str))
@@ -89,20 +89,20 @@ class Boggle{
     for (let baris=i-1; baris<=i+1 && baris<this._square; baris++)
     {
       for (let kol=j-1; kol<=j+1 && kol<this._square; kol++){
-        if (baris>=0 && kol>=0 && !dilewati[baris][kol])
-        this.cariKataPerIndex(boggle,dilewati, baris, kol, str);
+        if (baris>=0 && kol>=0 && !pass[baris][kol])
+        this.cariKataPerIndex(boggle,pass, baris, kol, str);
       }
     }
     str="";
-    dilewati[i][j] = false;
+    pass[i][j] = false;
   }
 
-  cariKata(boggle,dilewati){
+  cariKata(boggle,pass){
     let i,j;
     let str = "";
     for (i=0; i<this._square; i++)
     for (j=0; j<this._square; j++)
-    this.cariKataPerIndex(boggle, dilewati, i, j, str);
+    this.cariKataPerIndex(boggle, pass, i, j, str);
 
   }
 }
@@ -110,4 +110,4 @@ class Boggle{
 let game = new Boggle(4);
 console.log(game._boggle)
 console.log(game._dictionary);
-game.cariKata(game._boggle,game._dilewati);
+game.cariKata(game._boggle,game._pass);
