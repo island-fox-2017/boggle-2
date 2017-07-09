@@ -1,5 +1,5 @@
-let arr = [['D', 'R', 'U', 'M'], ['X', 'L', 'E', 'J'], ['Z', 'T', 'R', 'P'], ['Y', 'S', 'U', 'N']];
-let dictionary = 'MET';
+let arr = [['T', 'R', 'U', 'M'], ['X', 'L', 'E', 'P'], ['Z', 'T', 'R', 'P'], ['Y', 'S', 'U', 'N']];
+let dictionary = 'TRUMP';
 
 function iterate(arr, dictionary, i = 0, j = 0, currentDictIndex = 0) {
   let endResult = "";
