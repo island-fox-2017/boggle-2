@@ -1,4 +1,8 @@
-const data = require('./data2');
+const data = require('./data');
+const readline = require('readline');
+
+
+
 class Boogle2 {
   constructor(scale){
     this.scale = scale;
@@ -76,15 +80,36 @@ class Boogle2 {
 
 }
 
-let play = new Boogle2(15);
-// play.findWords();
-console.log('==================================================================================');
-console.log('============================= ---   BOGGLE BOARD   --- ===========================');
+//DRIVER
 
-console.log(play.makeBoard());
-play.makeLibrary();
-console.log('==================================================================================');
-console.log(`Kata dalam kamus yang ditemukan :\n ${play.findWords()}`);
-console.log('==================================================================================');
-console.log(`Banyak Kata dalam Kamus : ${data.length}`);
-console.log('==================================================================================');
+// play.findWords();
+
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+  prompt: '\n\n\n           WELCOME TO BOGGLE!!!\n Please Input Number greater or equal to 3 :  '
+});
+
+rl.prompt();
+
+rl.on('line', (num) => {
+  //hasil dari pengerjaan function ditulis ke console juga
+  console.log('==================================================================================');
+  console.log('============================= ---   BOGGLE BOARD   --- ===========================');
+  let play = new Boogle2(num);
+
+  console.log(play.makeBoard());
+  play.makeLibrary();
+  console.log('==================================================================================');
+  console.log(`Kata dalam kamus yang ditemukan sebanyak ${play.findWords().length} Kata, \n sbb: \n ${play.findWord}`);
+  console.log('==================================================================================');
+  console.log(`Banyak Kata dalam Kamus : ${data.length}`);
+  console.log('==================================================================================\n\n\n');
+  // console.log(`:  '${play(num)}'`);
+  rl.prompt();
+})
+.on('close', () => {
+  console.log('Sampai jumpa lagi ya!');
+  process.exit(0);
+});
