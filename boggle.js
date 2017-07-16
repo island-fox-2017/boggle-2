@@ -5,13 +5,18 @@ const fs = require('fs');
 class Boggle {
   constructor(size, file) {
     // this._board = this.board(size);
-    this._board =     [['T', 'I', 'M', 'D'],
-        ['W', 'O', 'P', 'E'],
-        ['H', 'O', 'R', 'U'],
-        ['Y', 'R', 'T', 'E']]
-    this.file = file;
-    this._passed = this.passed(size);
-    this.size = size;
+    // this.dictionary = file.split('","')
+    this._size = size;
+    this._passed = this.passed();
+
+    // tester
+    this._board = [
+      ['P','H','I','W'],
+      ['E','K','I','P'],
+      ['J','Z','M','B'],
+      ['A','B','D','G']
+    ];
+    this.dictionary = ['KIWI', 'PIZA', 'JAZ', 'MIHI', 'BIHI'];
   }
 
   board(size) {
@@ -29,33 +34,34 @@ class Boggle {
     return matrix;
   }
 
-  passed(size) {
+  passed() {
     let checker = [];
-    for (var i = 0; i <= size - 1; i++) {
+
+    for (var i = 0; i <= this._size - 1; i++) {
       let arr = [];
-      for (var j = 0; j <= size - 1; j++) arr.push(false);
+      for (var j = 0; j <= this._size - 1; j++) arr.push(false);
       checker.push(arr);
     }
     return checker;
   }
 
   word(str) {
-    for (var i = 0; i <= this.file.length - 1; i++) {
-      if (str === this.file[i]) return true;
+    for (var i = 0; i <= this.dictionary.length - 1; i++) {
+      if (str === this.dictionary[i]) return true;
     }
     return false;
   }
 
   searchWord(board, passed, i, j, str) {
-    // return this._passed
     passed[i][j] = true;
     str = str + board[i][j];
 
     if (this.word(str)) console.log(str);
 
-    for (var row = i - 1; row <= i + 1 && row < this.size; row++) {
-      for (var col = j - 1; col <= j + 1 && col < this.size; col++) {
-        if (row >= 0 && col >= 0 && !passed[row][col]) this.searchWord(board, passed, i, j, str);
+    for (var row = i - 1; row <= i + 1 && row < this._size; row++) {
+      for (var col = j - 1; col <= j + 1 && col < this._size; col++) {
+        if (row >= 0 && col >= 0 && !passed[row][col])
+          this.searchWord(board, passed, row, col, str);
       }
     }
 
@@ -64,10 +70,10 @@ class Boggle {
   }
 
   findWord(board, passed) {
-    let str = '';
-    for (var i = 0; i <= this.size - 1; i++) {
-      for (var j = 0; j <= this.size - 1; j++) this.searchWord(board, passed, i, j, str);
-    }
+    let str = "";
+    for (var i = 0; i <= this._size - 1; i++)
+      for (var j = 0; j <= this._size - 1; j++)
+        this.searchWord(board, passed, i, j, str);
   }
 
   printBoard() {
@@ -89,18 +95,20 @@ class Boggle {
   }
 
   solve() {
-    console.log(this.printBoard(this._board));
-    console.log(this.findWord(this._board, this._passed));
+    console.log(this.printBoard(this._board));;
+    this.findWord(this._board, this._passed);
   }
-
 } // end of Boggle
 
-let dictionary = fs.readFileSync('data.js', 'utf8')
-let game = new Boggle(4, dictionary);
+let file = fs.readFileSync('data.js', 'utf8')
+let game = new Boggle(4, file);
+// console.log(game.dictionary);
 // console.log(game._board);
 
+// console.log(game.printBoard(game._board));
+// game.findWord(game._board, game._passed);
 
-console.log(game.solve());
+game.solve();
 
 /*
 [['P','H','I','W'],
